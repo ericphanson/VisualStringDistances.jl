@@ -1,5 +1,18 @@
 module VisualStringDistances
 
-# Write your package code here.
+using LinearAlgebra
+using UnbalancedOptimalTransport: UnbalancedOptimalTransport, DiscreteMeasure, KL, sinkhorn_divergence!
 
+using CSV: CSV
+using StaticArrays
+
+export Glyph, word_measure, visual_distance
+
+include("compat.jl")
+include("glyphs.jl")
+include("glyphcoordinates.jl")
+include("glue.jl")
+
+visual_distance(s::AbstractString, t::AbstractString; D = KL(), ϵ = 1.0, kwargs...) =
+    sinkhorn_divergence!(D, word_measure(s), word_measure(t), ϵ; kwargs...)
 end
