@@ -1,0 +1,13 @@
+name = "VisualStringDistances"
+uuid = "089bb0c6-1854-47b9-96f7-327dbbe09dca"
+authors = ["Eric P. Hanson"]
+version = "0.1.0"
+
+[compat]
+julia = "1"
+
+[extras]
+Test = "8dfed614-e22c-5e08-85e1-65c5234f0b40"
+
+[targets]
+test = ["Test"]
