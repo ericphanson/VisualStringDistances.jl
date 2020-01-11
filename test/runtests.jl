@@ -1,6 +1,3 @@
-using Pkg
-# Add unregistered dependency
-Pkg.add(PackageSpec(url="https://github.com/ericphanson/UnbalancedOptimalTransport.jl", rev="master"))
 using VisualStringDistances
 using Test
 using VisualStringDistances: glyph!
