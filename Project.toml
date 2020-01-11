@@ -12,6 +12,7 @@ UnbalancedOptimalTransport = "6f61b460-fd45-461a-bdf7-98edd72e362f"
 [compat]
 CSV = "0.5"
 StaticArrays = "0.12"
+UnbalancedOptimalTransport = "0.1"
 julia = "1"
 
 [extras]
