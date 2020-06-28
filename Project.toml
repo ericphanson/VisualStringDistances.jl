@@ -10,7 +10,7 @@ StaticArrays = "90137ffa-7385-5640-81b9-e52037218182"
 UnbalancedOptimalTransport = "6f61b460-fd45-461a-bdf7-98edd72e362f"
 
 [compat]
-CSV = "0.5"
+CSV = "0.5, 0.7"
 StaticArrays = "0.12"
 UnbalancedOptimalTransport = "0.1"
 julia = "1"
