@@ -11,7 +11,7 @@ LinearAlgebra.dot(v::AbstractVector, ::ConstantVector{c}) where {c} = c * conj(s
 UnbalancedOptimalTransport.fdot(f, ::ConstantVector{c}, v::AbstractVector) where {c} = conj(c) * sum(f, v)
 UnbalancedOptimalTransport.fdot(f, v::AbstractVector, ::ConstantVector{c}) where {c} = conj(sum(v)) * f(c)
 
-function word_measure(s::String; normalize_size = true, T = Float64)
+function word_measure(s::String; normalize_size = true, normalize_mass = false, T = Float64)
     gc = GlyphCoordinates{T}(s)
     if normalize_size
         sz = SVector{2,T}(gc.sz)
@@ -19,6 +19,11 @@ function word_measure(s::String; normalize_size = true, T = Float64)
             gc.v[i] = gc.v[i] ./ sz
         end
     end
+
     n = length(gc)
-    DiscreteMeasure(ConstantVector{one(T),T}(n), ConstantVector{zero(T),T}(n), gc)
+    if normalize_mass
+        DiscreteMeasure(ConstantVector{one(T)/T(n),T}(n), ConstantVector{-log(T(n)),T}(n), gc)
+    else
+        DiscreteMeasure(ConstantVector{one(T),T}(n), ConstantVector{zero(T),T}(n), gc)
+    end
 end
