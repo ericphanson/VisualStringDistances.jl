@@ -42,13 +42,8 @@ function glyph!(v::Vector{UInt8})
 end
 
 const UNIFONT_LOOKUP =
-    let file = CSV.File(
-            joinpath(@__DIR__, "..", "data", "unifont-12.1.04.hex");
-            header = 0,
-            type = String,
-            delim = ":",
-        )
-        Dict{String,String}(r[1] => r[2] for r in file)
+    let file = readdlm(joinpath(@__DIR__, "..", "data", "unifont-12.1.04.hex"), ':', String)
+        Dict{String,String}(r[1] => r[2] for r in eachrow(file))
     end
 
 const GLYPH_CHAR_CACHE = Dict{Char,Glyph}()

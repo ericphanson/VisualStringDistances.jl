@@ -3,7 +3,7 @@ module VisualStringDistances
 using LinearAlgebra
 using UnbalancedOptimalTransport: UnbalancedOptimalTransport, DiscreteMeasure, KL, sinkhorn_divergence!
 
-using CSV: CSV
+using DelimitedFiles
 using StaticArrays
 
 export Glyph, word_measure, visual_distance

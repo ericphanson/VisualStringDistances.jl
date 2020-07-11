@@ -4,13 +4,12 @@ authors = ["Eric P. Hanson"]
 version = "0.1.0"
 
 [deps]
-CSV = "336ed68f-0bac-5ca0-87d4-7b16caf5d00b"
+DelimitedFiles = "8bb1440f-4735-579b-a4ab-409b98df4dab"
 LinearAlgebra = "37e2e46d-f89d-539d-b4ee-838fcccc9c8e"
 StaticArrays = "90137ffa-7385-5640-81b9-e52037218182"
 UnbalancedOptimalTransport = "6f61b460-fd45-461a-bdf7-98edd72e362f"
 
 [compat]
-CSV = "0.5"
 StaticArrays = "0.12"
 UnbalancedOptimalTransport = "0.2"
 julia = "1"
