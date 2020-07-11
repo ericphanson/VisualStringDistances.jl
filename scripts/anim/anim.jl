@@ -127,60 +127,6 @@ function animate_coupling!(scene, ax, π, coords1, coords2;
 end
 
 
-# w1 = word_measure("hello"; normalize_size = false)
-# w2 = word_measure("heIIo"; normalize_size = false)
-# π = optimal_coupling!(KL(1.0), w1, w2)
-
-# w1 = DiscreteMeasure(w1.density / sum(w1.density), w1.set)
-# w2 = DiscreteMeasure(w2.density / sum(w2.density), w2.set)
-# π = optimal_coupling!(Balanced(), w1, w2)
-# π_1 = sum(π, dims = 2)
-# π_2 = vec(sum(π, dims = 1))
-
-
-
-# function plot2d!(ax, gc::VisualStringDistances.GlyphCoordinates, density)
-#     scatter!(ax, [Point2f0(v[2], 1-v[1] ) for v in gc], color = density)
-# end
-# plot2d!(ax, w::DiscreteMeasure{<:Any, <:Any, <: VisualStringDistances.GlyphCoordinates}) = plot2d!(ax, w.set, w.density)
-
-
-# layout[1,2] = cbar = LColorbar(scene, anim_plt, label="Mass"); cbar.width = 30
-
-
-# empty!(ax)
-
-
-# gc, density = w2.set, w2.density
-# pts = Node(gc_to_pts(gc))
-# colors = Node(Vector{Float32}(density))
-# plt = scatter!(ax, pts, color = colors,  markersize=MARKERSIZE)
-# display(scene)
-
-
-# Line map version:
-# lines!(ax, 1:length(initial_density), initial_density)
-# lines!(ax, 1:length(final_density), final_density)
-# ylims!(ax, 0f0, 2f0)
-
-
-# final_density = π_2
-# initial_density = density
-
-# # Want density 1 to go to color .5
-# # Want density 0 to go to color 0
-# # Want density 2 to go to color 2
-# density_to_color(d) = get(CMAP, d/2)
-# map(range(0,1; length=50)) do t
-#     # colors[] = density_to_color.(2*ones(length(final_density)))
-#     colors[] = density_to_color.(final_density*t + (1-t)*initial_density)
-#     # colors[] = [rand(RGBA) for _ = eachindex(initial_density)]
-#     empty!(ax)
-#     scatter!(ax, pts, color = colors[], markersize=MARKERSIZE2)
-#     sleep(5/50)
-# end
-
-
 @eval AbstractPlotting begin
    function save(path::String, io::VideoStream;
               framerate::Int = 24, compression = 20)
