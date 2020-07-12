@@ -29,7 +29,7 @@ using LinearAlgebra: dot
 
         @test_throws ArgumentError glyph!(hex2bytes("0000000018242442427E424242420"))
 
-        @test_throws ArgumentError Glyph(Char(0x12480))
+        @test_throws ErrorException Glyph(Char(0x12480))
 
         g = glyph!(hex2bytes("00000000000003C0042004200840095008E01040100010002000200000000000"))
         @test sprint(show, g) == """
@@ -162,6 +162,6 @@ using LinearAlgebra: dot
 
         # Test normalization
         @test visual_distance("abc", "def", normalize=sqrt) ≈ v1 / sqrt(3)
-        @test visual_distance("abc", "def", normalize=identity) ≈ v1
+        @test visual_distance("abc", "def", normalize=identity) ≈ v1 / 3
     end
 end
