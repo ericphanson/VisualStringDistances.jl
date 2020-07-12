@@ -100,7 +100,7 @@ using LinearAlgebra: dot
             @test collect(c) isa Vector{T}
             @test length(c) == 10
             @test c == fill(constant, 10) == collect(c)
-            @test sum(c) == sum(collect(c))
+            @test sum(c) ≈ sum(collect(c))
             f(x) = sin(x) + 10.0
             d = randn(10)
             @test fdot(f, c, d) ≈ fdot(f, collect(c), d)
