@@ -82,7 +82,7 @@ using LinearAlgebra: dot
         @test GlyphCoordinates('a') ==
               GlyphCoordinates("a") ==
               GlyphCoordinates{Float64}("a")
-        @test length(GlyphCoordinates('a')) == sum(!iszero, Glyph("a"))
+        @test length(GlyphCoordinates('a')) ≈ sum(!iszero, Glyph("a"))
         # test indexing
         @test GlyphCoordinates('a')[1] == collect(Tuple(findfirst(!iszero, Glyph("a"))))
 
