@@ -113,8 +113,8 @@ end
 
 # `Float64` default.
 function visual_distance(s::Union{Char,AbstractString}, t::Union{Char,AbstractString};
-                         D=KL(1.0), ϵ=0.1)
-    visual_distance(Float64, s, t; D=D, ϵ=ϵ)
+                         D=KL(1.0), ϵ=0.1, normalize=nothing)
+    visual_distance(Float64, s, t; D=D, ϵ=ϵ, normalize=normalize)
 end
 
 
