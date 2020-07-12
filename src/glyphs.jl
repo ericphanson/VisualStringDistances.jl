@@ -41,16 +41,16 @@ function glyph!(v::Vector{UInt8})
     end
 end
 
-const UNIFONT_LOOKUP =
-    let file = readdlm(joinpath(@__DIR__, "..", "data", "unifont-12.1.04.hex"), ':', String)
-        Dict{String,String}(r[1] => r[2] for r in eachrow(file))
-    end
+const UNIFONT_LOOKUP = let file = readdlm(joinpath(@__DIR__, "..", "data",
+                                                   "unifont-12.1.04.hex"), ':', String)
+    Dict{String,String}(r[1] => r[2] for r in eachrow(file))
+end
 
 const GLYPH_CHAR_CACHE = Dict{Char,Glyph}()
 
 function key(c::Char)
     u = codepoint(c)
-    return uppercase(string(u, base = 16, pad = u ≤ 0xffff ? 4 : 6))
+    return uppercase(string(u, base=16, pad=u ≤ 0xffff ? 4 : 6))
 end
 
 function Glyph(c::Char)

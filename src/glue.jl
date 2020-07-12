@@ -8,8 +8,12 @@ Base.sum(v::ConstantVector{c}) where {c} = c * length(v)
 LinearAlgebra.dot(::ConstantVector{c}, v::AbstractVector) where {c} = conj(c) * sum(v)
 LinearAlgebra.dot(v::AbstractVector, ::ConstantVector{c}) where {c} = c * conj(sum(v))
 
-UnbalancedOptimalTransport.fdot(f, ::ConstantVector{c}, v::AbstractVector) where {c} = conj(c) * sum(f, v)
-UnbalancedOptimalTransport.fdot(f, v::AbstractVector, ::ConstantVector{c}) where {c} = conj(sum(v)) * f(c)
+function UnbalancedOptimalTransport.fdot(f, ::ConstantVector{c}, v::AbstractVector) where {c}
+    conj(c) * sum(f, v)
+end
+function UnbalancedOptimalTransport.fdot(f, v::AbstractVector, ::ConstantVector{c}) where {c}
+    conj(sum(v)) * f(c)
+end
 
 function word_measure(::Type{T}, s::String) where {T}
     gc = GlyphCoordinates{T}(s)

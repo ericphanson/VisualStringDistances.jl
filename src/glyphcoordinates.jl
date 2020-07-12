@@ -17,10 +17,8 @@ Base.IndexStyle(g::GlyphCoordinates) = IndexLinear()
 GlyphCoordinates(args...) = GlyphCoordinates{Float64}(args...)
 
 function GlyphCoordinates{T}(g::Glyph) where {T}
-    GlyphCoordinates(
-        [SVector{2,T}(Tuple(ci)) for ci in CartesianIndices(g) if !iszero(g[ci])],
-        size(g),
-    )
+    GlyphCoordinates([SVector{2,T}(Tuple(ci))
+                      for ci in CartesianIndices(g) if !iszero(g[ci])], size(g))
 end
 
 const COORDS_CACHE = Dict{Char,GlyphCoordinates{Float64}}()
