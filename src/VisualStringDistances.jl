@@ -13,6 +13,9 @@ include("glyphs.jl")
 include("glyphcoordinates.jl")
 include("glue.jl")
 
-visual_distance(s::AbstractString, t::AbstractString; D = KL(), ϵ = 1.0, kwargs...) =
-    sinkhorn_divergence!(D, word_measure(s), word_measure(t), ϵ; kwargs...)
+visual_distance(::Type{T}, s::AbstractString, t::AbstractString; D = KL(one(T)), ϵ = T(0.1)) where {T} =
+    sinkhorn_divergence!(D, word_measure(T, s), word_measure(T, t), ϵ)
+
+visual_distance(s::AbstractString, t::AbstractString; D = KL(1.0), ϵ = 0.1) = visual_distance(Float64, s, t; D = D, ϵ = ϵ)
+
 end
