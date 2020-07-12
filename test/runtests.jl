@@ -1,6 +1,6 @@
 using VisualStringDistances
 using Test
-using VisualStringDistances: glyph!, printglyph, GlyphCoordinates, ConstantVector
+using VisualStringDistances: glyph!, Glyph, GlyphCoordinates, ConstantVector
 using UnbalancedOptimalTransport: fdot, KL, sinkhorn_divergence!
 using LinearAlgebra: dot
 
@@ -28,6 +28,9 @@ using LinearAlgebra: dot
              """
 
         @test_throws ArgumentError glyph!(hex2bytes("0000000018242442427E424242420"))
+
+        @test_throws ArgumentError Glyph(Char(0x12480))
+
         g = glyph!(hex2bytes("00000000000003C0042004200840095008E01040100010002000200000000000"))
         @test sprint(show, g) == """
             ----------------
@@ -75,6 +78,10 @@ using LinearAlgebra: dot
         @test sprint(printglyph, "abc") == abc_printed_rep
         @test sprint(printglyph, hcat(Glyph("a"), Glyph("bc"))) == abc_printed_rep
         @test sprint(printglyph, GlyphCoordinates("abc")) == abc_printed_rep
+
+        abc_substring = Glyph(SubString("abcd", 1:3))
+        @test sprint(printglyph, abc_substring) == abc_printed_rep
+        @test sprint(show, abc_substring) == abc_printed_rep
     end
 
     @testset "More GlyphCoordinates" begin
@@ -121,6 +128,9 @@ using LinearAlgebra: dot
             @test v1 >= 0
             @test v1 ≈ visual_distance(T, "def", "abc"; D=KL(ρ), ϵ=ϵ) rtol = 1e-3
 
+            # Note: triangle inequality doesn't necessary hold in general
+            # (it's not proven, as far as I know)
+            # However, it does in this case!
             @test v3 <= v1 + v2
 
             v4 = visual_distance(T, "abc", "abd"; D=KL(ρ), ϵ=ϵ)
@@ -145,5 +155,13 @@ using LinearAlgebra: dot
         def_measure = word_measure("def")
         @test v1 ≈ sinkhorn_divergence!(KL(1.0), abc_measure, def_measure, 0.1)
 
+        # Make sure we can use non-String types
+        abc_substring = SubString("abcd", 1:3)
+        def_substring = SubString("defh", 1:3)
+        @test v1 ≈ visual_distance(abc_substring, def_substring)
+
+        # Test normalization
+        @test visual_distance("abc", "def", normalize=sqrt) ≈ v1 / sqrt(3)
+        @test visual_distance("abc", "def", normalize=identity) ≈ v1
     end
 end

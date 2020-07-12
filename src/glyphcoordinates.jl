@@ -33,7 +33,7 @@ end
 GlyphCoordinates{T}(c::Char) where {T} = GlyphCoordinates{T}(Glyph(c))
 
 # Use the character cache `COORDS_CACHE`
-function GlyphCoordinates{T}(s::String) where {T}
+function GlyphCoordinates{T}(s::AbstractString) where {T}
     gcs = [GlyphCoordinates{T}(c) for c in s]
     L = sum(length, gcs)
     v = Vector{SVector{2,T}}(undef, L)

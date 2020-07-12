@@ -55,12 +55,14 @@ end
 
 function Glyph(c::Char)
     get!(GLYPH_CHAR_CACHE, c) do
-        glyph!(hex2bytes(UNIFONT_LOOKUP[key(c)]))
+        k = key(c)
+        haskey(UNIFONT_LOOKUP, k) || error("UNIFONT doesn't know how to render `c`.")
+        return glyph!(hex2bytes(UNIFONT_LOOKUP[k]))
     end
 end
 
 """
-    Glyph(s::String) --> Glyph
+    Glyph(s::AbstractString) --> Glyph
 
 Construct a `Glyph` from a string.
 
@@ -86,9 +88,16 @@ julia> Glyph("abc")
 ------------------------
 ```
 """
-function Glyph(s::String)
+function Glyph(s::AbstractString)
     foldl(hcat, (Glyph(c) for c in s))
 end
+
+"""
+    printglyph([io=stdout], g::Union{Char, AbstractString, Glyph})
+
+Prints a visual representation of `g` to `io`.
+"""
+function printglyph end
 
 function printglyph(io::IO, g::Glyph)
     rep = s -> s ? "#" : "-"
@@ -98,8 +107,8 @@ function printglyph(io::IO, g::Glyph)
 end
 
 printglyph(g) = printglyph(stdout, g)
-printglyph(io::IO, s::String) = printglyph(io, Glyph(s))
-printglyph(s::String) = printglyph(stdout, s)
+printglyph(io::IO, s::Union{Char, AbstractString}) = printglyph(io, Glyph(s))
+printglyph(s::Union{Char, AbstractString}) = printglyph(stdout, s)
 
 Base.show(io::IO, ::MIME"text/plain", g::Glyph) = printglyph(io, g)
 Base.show(io::IO, g::Glyph) = printglyph(io, g)
