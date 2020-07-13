@@ -5,15 +5,9 @@
     using UnbalancedOptimalTransport: KL, Balanced
     using Makie, MakieLayout
     using GeometryBasics: Point2f0
+    using PlotUtils: RGBA, RGB
 end
 
-
-function Base.empty!(ax::LAxis)
-    while !isempty(ax.scene.plots)
-        plot = first(ax.scene.plots)
-        delete!(ax.scene, plot)
-    end
-end
 
 function hide_decorations!(ax)
     ax.xticksvisible=false
@@ -32,7 +26,8 @@ function imgrot(v)
     Point2f0(v[2], 1-v[1])
 end
 
-using PlotUtils: RGBA, RGB
+
+# transparent to black for 0 to 1, then becomes redder from 1 to 2
 const CMAP = cgrad([RGBA{Float64}(0.0,0.0,0.0,0.0), RGBA{Float64}(0.0,0.0,0.0,1.0), RGBA{Float64}(1.0,0.0,0.0,1.0)], [0,1,1.5])
 
 density_to_color(d) = get(CMAP, d/2)
@@ -40,13 +35,12 @@ density_to_color(d) = get(CMAP, d/2)
 
 function animate_words(string1, string2;
     normalize_density = false,
-    normalize_size = false,
     D = KL(1.0),
     random_colors = false,
     kwargs...
 )
-    w1 = word_measure(string1; normalize_size = normalize_size)
-    w2 = word_measure(string2; normalize_size = normalize_size)
+    w1 = word_measure(string1)
+    w2 = word_measure(string2)
 
     if normalize_density
         w1 = DiscreteMeasure(w1.density / sum(w1.density), w1.set)
@@ -87,7 +81,6 @@ function animate_coupling!(scene, ax, π, coords1, coords2;
     y_max = max(maximum([x[2] for x in imgrot.(coords1)]), maximum([x[2] for x in imgrot.(coords2)]))
     
     hide_decorations!(ax)
-    empty!(ax)
 
     s1, s2 = size(π)
     if random_colors
@@ -158,5 +151,11 @@ end
 end
 
 
-# animate_words("hello", "heIIo"; D = KL(1.0), save_path="hello_heIIo.gif")
-# animate_words("hello", "heIIo"; D = Balanced(), normalize_density=true, save_path="hello_heIIo_balanced.gif")
+@info "Generating animations..."
+
+@time begin
+    animate_words("hello", "heIIo"; D = KL(1.0), save_path=abspath(joinpath(@__DIR__, "..", "..", "docs", "assets", "hello_heIIo.gif")))
+    animate_words("hello", "heIIo"; D = Balanced(), normalize_density=true, save_path=abspath(joinpath(@__DIR__, "..", "..", "docs", "assets", "hello_heIIo_balanced.gif")))
+end
+
+@info "Done!"
