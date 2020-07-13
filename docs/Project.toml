@@ -1,2 +1,6 @@
 [deps]
+DataFrames = "a93c6f00-e57d-5684-b7b6-d8193f3e46c0"
 Documenter = "e30172f5-a6a5-5a46-863b-614d45cd2de4"
+StringDistances = "88034a9c-02f8-509d-84a9-84ec65e18404"
+UnbalancedOptimalTransport = "6f61b460-fd45-461a-bdf7-98edd72e362f"
+VisualStringDistances = "089bb0c6-1854-47b9-96f7-327dbbe09dca"

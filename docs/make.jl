@@ -13,6 +13,8 @@ makedocs(;
     ),
     pages=[
         "Home" => "index.md",
+        "Visualizations" => "visualizations.md",
+        "Package names" => "packagenames.md",
     ],
 )
 

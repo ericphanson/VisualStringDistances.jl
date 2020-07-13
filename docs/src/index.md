@@ -10,3 +10,5 @@ CurrentModule = VisualStringDistances
 ```@autodocs
 Modules = [VisualStringDistances]
 ```
+
+
