@@ -1,0 +1,8 @@
+[deps]
+DataFrames = "a93c6f00-e57d-5684-b7b6-d8193f3e46c0"
+Permutations = "2ae35dd2-176d-5d53-8349-f30d82d94d4f"
+StatsBase = "2913bbd2-ae8a-5f71-8c99-4fb6c76f3a91"
+StringDistances = "88034a9c-02f8-509d-84a9-84ec65e18404"
+Transducers = "28d57a85-8fef-5791-bfe6-a80928e7c999"
+UnicodePlots = "b8865327-cd53-5732-bb35-84acbb429228"
+VisualStringDistances = "089bb0c6-1854-47b9-96f7-327dbbe09dca"
