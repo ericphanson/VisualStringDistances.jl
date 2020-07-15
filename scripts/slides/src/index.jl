@@ -1,13 +1,15 @@
-# # How similar do two strings look? Visual distances in Julia
+# # How similar do two strings look?
 
-# <br />
-# <br />
-#
+# ## VisualStringDistances.jl
+
 # <img src="assets/julia_visual.gif" style="width: 65%" class="center" />
 
 # ---
 
 # ## Let's compare strings
+
+# <br />
+
 using StringDistances
 
 # How many single-character edits are needed to turn "Julia" into "JuIia"?
@@ -26,9 +28,10 @@ StringDistances.QGram(2)("Julia", "JuIia"), StringDistances.QGram(2)("Julia", "J
 # ---
 # ## Visual distances
 
-# But none of these take into account that "Julia" and "JuIia" look pretty similar, while "Julia" and "JuQia" look pretty different.
-
 # <br />
+
+
+# But none of these take into account that "Julia" and "JuIia" look pretty similar, while "Julia" and "JuQia" look pretty different.
 
 using VisualStringDistances: VisualStringDistances
 const VSD = VisualStringDistances
@@ -81,6 +84,8 @@ VSD.printglyph("Julia vs JuIia"); VSD.printglyph("Julia vs JuQia") # hide
 
 # ## 2. A way to compare images: Optimal transport
 
+# <br />
+
 # * <p> you have $a(x_1)$ amount of stuff at site $x_1$, $a(x_2)$ amount of stuff at $x_2$, ..., $a(x_n)$ stuff at $x_n$. </p>
 # * <p> you want to move it around until you have $b(y_1)$ stuff at site $y_1$, $b(y_2)$ stuff at $y_2$, ..., $b(y_m)$ stuff at $y_m$ </p>
 # * <p> it costs $c(x_i, y_j)$ to move one unit of mass from $x_i$ to $y_j$ </p>
@@ -99,6 +104,8 @@ VSD.printglyph("Julia vs JuIia"); VSD.printglyph("Julia vs JuQia") # hide
 # ---
 
 # ## How does optimal transport relate to our problem?
+
+# <br />
 
 # - <p> If we have a black pixel in the 3rd column and 2nd row of the bitmap, we can see that as $a(1) = 1$ unit of mass at site $x_1 = (2,3)$. </p>
 # - <p> In this way, we can translate the bitmap representation of the string into the language of optimal transport. </p>
@@ -125,15 +132,15 @@ VSD.printglyph("Julia vs JuIia"); VSD.printglyph("Julia vs JuQia") # hide
 
 # ## What use does this have?
 
-# Testing if a new package being added to the General registry is nefariously impersonating another package.
 
+# Adding a check for new packages being added to the General registry to try to prevent the malicious impersonation another package.
 
 # Two main concerns:
 
 # 1. Possibly, one will make a typo, and end up at the wrong package ("typosquatting") $\leadsto$ edit distance check
 # 2. Possibly, one will copy a malicious tutorial that has mimicked the appearance of the name of a popular package $\leadsto$ visual distance
 
-# <img src="assets/FIux.gif" style="width: 50%" class="center" />
+# <img src="assets/FIux.gif" style="width: 45%" class="center" />
 
 
 # ---
@@ -143,7 +150,7 @@ VSD.printglyph("Julia vs JuIia"); VSD.printglyph("Julia vs JuQia") # hide
 # I'm not sure.
 
 # * <p> Human perception is actually a bit different </p>
-#   * <p> e.g. we mix up `p` vs `q` more than 'a' vs 'e'  [2], but `visual_distance` says `p` and `q` are further apart than `a` and `e` </p>
+#   * e.g. we mix up "p" vs "q" more than "a" vs "e"  [2], but `visual_distance` says "p" and "q" are further apart than "a" and "e"
 # * <p> optimal transport is a bit slow (though not prohibitively so, with entropic regularization and the low resolution font) </p>
 # * <p> there are several parameters and cutoffs to tune </p>
 #
@@ -159,7 +166,7 @@ VSD.printglyph("Julia vs JuIia"); VSD.printglyph("Julia vs JuQia") # hide
 
 # ## References & Notes
 
-# * <p> Package for `visual_distance`, `printglyph`, etc: VisualStringDistances.jl </p> 
+# * Package for `visual_distance`, `printglyph`, etc: VisualStringDistances.jl
 # * <p> Package with the underlying algorithm optimal transport algorithm: UnbalancedOptimalTransport.jl </p>
 
 # <br />
@@ -175,3 +182,5 @@ VSD.printglyph("Julia vs JuIia"); VSD.printglyph("Julia vs JuQia") # hide
 # <br />
 
 # Slides made with the help of Remark.jl, Literate.jl, and Documenter.jl; gifs made with Makie.jl.
+
+# Thanks to Stefan Karpinski for suggesting GNU Unifont.
