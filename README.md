@@ -10,7 +10,7 @@ Work-in-progress. Quick demo:
 ```julia
 julia> using VisualStringDistances
 
-julia> Glyph("aaa")
+julia> printglyph("aaa")
 ------------------------
 ------------------------
 ------------------------
@@ -29,7 +29,7 @@ julia> Glyph("aaa")
 ------------------------
 
 
-julia> Glyph("ZZZ")
+julia> printglyph("ZZZ")
 ------------------------
 ------------------------
 ------------------------
@@ -51,7 +51,7 @@ julia> Glyph("ZZZ")
 julia> visual_distance("aaa","ZZZ")
 6.475914720385958
 
-julia> Glyph("III")
+julia> printglyph("III")
 ------------------------
 ------------------------
 ------------------------
@@ -70,7 +70,7 @@ julia> Glyph("III")
 ------------------------
 
 
-julia> Glyph("lll")
+julia> printglyph("lll")
 ------------------------
 ------------------------
 ------------------------
