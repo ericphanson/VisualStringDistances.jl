@@ -48,13 +48,13 @@ function GlyphCoordinates{T}(s::AbstractString) where {T}
     GlyphCoordinates{T}(v, Tuple(shift + SVector(16, 0)))
 end
 
-function printglyph(io, g::GlyphCoordinates{T}) where {T}
+function printglyph(io, g::GlyphCoordinates{T}; symbols=("#", " ")) where {T}
     for r = 1:g.sz[1]
         for c = 1:g.sz[2]
             if SVector{2,T}(r, c) ∈ g.v
-                print(io, "#")
+                print(io, symbols[1])
             else
-                print(io, "-")
+                print(io, symbols[2])
             end
         end
         println(io)

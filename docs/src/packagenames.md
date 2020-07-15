@@ -77,7 +77,6 @@ dl_cutoff = 1;
 df.DL = DL.(df.name1, df.name2);
 df.sqrt_normalized_DL = df.DL ./ ( 5 .+ sqrt.(max.(length.(df.name1), length.(df.name2))) );
 
-@info "Computing visual distance...";
 @time df.sqrt_normalized_visual_dist = d.(df.name1, df.name2);
 ```
 

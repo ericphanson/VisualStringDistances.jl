@@ -1,5 +1,6 @@
 [deps]
 AbstractPlotting = "537997a7-5e4e-5d89-9595-2241ea00577e"
+FileWatching = "7b1f6079-737a-58dc-b8bc-7a2ca5c1b5ee"
 GLMakie = "e9467ef8-e4e7-5192-8a1a-b1aee30e663a"
 GeometryBasics = "5c1252a2-5f33-56bf-86c9-59e7332b4326"
 MakieLayout = "5a521ce4-ebb9-4793-b5b7-b334dfe8393c"
@@ -8,3 +9,6 @@ Remark = "79b45036-8e38-5d04-8f49-b9fb23ff5a0d"
 StringDistances = "88034a9c-02f8-509d-84a9-84ec65e18404"
 UnbalancedOptimalTransport = "6f61b460-fd45-461a-bdf7-98edd72e362f"
 VisualStringDistances = "089bb0c6-1854-47b9-96f7-327dbbe09dca"
+
+[compat]
+Remark = "0.3"

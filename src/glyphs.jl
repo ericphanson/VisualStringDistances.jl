@@ -53,6 +53,10 @@ function key(c::Char)
     return uppercase(string(u, base=16, pad=u ≤ 0xffff ? 4 : 6))
 end
 
+function get_char(k::AbstractString)
+    Char(parse(UInt16, "0x$k"))
+end
+
 function Glyph(c::Char)
     get!(GLYPH_CHAR_CACHE, c) do
         k = key(c)
@@ -99,16 +103,16 @@ Prints a visual representation of `g` to `io`.
 """
 function printglyph end
 
-function printglyph(io::IO, g::Glyph)
-    rep = s -> s ? "#" : "-"
+function printglyph(io::IO, g::Glyph; symbols=("#", " "))
+    rep = s -> s ? symbols[1] : symbols[2]
     for r in eachrow(g)
         println(io, mapreduce(rep, *, r))
     end
 end
 
-printglyph(g) = printglyph(stdout, g)
-printglyph(io::IO, s::Union{Char, AbstractString}) = printglyph(io, Glyph(s))
-printglyph(s::Union{Char, AbstractString}) = printglyph(stdout, s)
+printglyph(g; kwargs...) = printglyph(stdout, g; kwargs...)
+printglyph(io::IO, s::Union{Char, AbstractString}; kwargs...) = printglyph(io, Glyph(s); kwargs...)
+printglyph(s::Union{Char, AbstractString}; kwargs...) = printglyph(stdout, s; kwargs...)
 
-Base.show(io::IO, ::MIME"text/plain", g::Glyph) = printglyph(io, g)
-Base.show(io::IO, g::Glyph) = printglyph(io, g)
+# Base.show(io::IO, ::MIME"text/plain", g::Glyph) = printglyph(io, g)
+# Base.show(io::IO, g::Glyph) = printglyph(io, g)

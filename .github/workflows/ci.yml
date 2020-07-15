@@ -54,8 +54,8 @@ jobs:
           version: '1.4'
       - run: julia --project=docs -e '
           using Pkg;
-          Pkg.develop(PackageSpec(; path=pwd()));
-          Pkg.instantiate();'
+          Pkg.instantiate();
+          Pkg.precompile();'
       - run: julia --project=docs docs/make.jl
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

@@ -4,11 +4,12 @@ using VisualStringDistances: glyph!, Glyph, GlyphCoordinates, ConstantVector
 using UnbalancedOptimalTransport: fdot, KL, sinkhorn_divergence!
 using LinearAlgebra: dot
 
+printglyph_dashes = (io, g) -> printglyph(io, g; symbols=("#", "-"))
 @testset "VisualStringDistances.jl" begin
 
     @testset "Glyphs" begin
         g = glyph!(hex2bytes("0000000018242442427E424242420000"))
-        @test sprint(show, g) == """
+        @test sprint(printglyph_dashes, g) == """
              --------
              --------
              --------
@@ -32,7 +33,7 @@ using LinearAlgebra: dot
         @test_throws ErrorException Glyph(Char(0x12480))
 
         g = glyph!(hex2bytes("00000000000003C0042004200840095008E01040100010002000200000000000"))
-        @test sprint(show, g) == """
+        @test sprint(printglyph_dashes, g) == """
             ----------------
             ----------------
             ----------------
@@ -73,15 +74,13 @@ using LinearAlgebra: dot
                           ------------------------
                           """
 
-        @test sprint(show, Glyph("abc")) == abc_printed_rep
-        @test sprint(printglyph, Glyph("abc")) == abc_printed_rep
-        @test sprint(printglyph, "abc") == abc_printed_rep
-        @test sprint(printglyph, hcat(Glyph("a"), Glyph("bc"))) == abc_printed_rep
-        @test sprint(printglyph, GlyphCoordinates("abc")) == abc_printed_rep
+        @test sprint(printglyph_dashes, Glyph("abc")) == abc_printed_rep
+        @test sprint(printglyph_dashes, "abc") == abc_printed_rep
+        @test sprint(printglyph_dashes, hcat(Glyph("a"), Glyph("bc"))) == abc_printed_rep
+        @test sprint(printglyph_dashes, GlyphCoordinates("abc")) == abc_printed_rep
 
         abc_substring = Glyph(SubString("abcd", 1:3))
-        @test sprint(printglyph, abc_substring) == abc_printed_rep
-        @test sprint(show, abc_substring) == abc_printed_rep
+        @test sprint(printglyph_dashes, abc_substring) == abc_printed_rep
     end
 
     @testset "More GlyphCoordinates" begin
