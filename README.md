@@ -30,7 +30,7 @@ the [docs](https://ericphanson.github.io/UnbalancedOptimalTransport.jl/stable/op
 for that package go into a lot more detail about optimal transport. In particular, we are actually computing the Sinkhorn divergence
 corresponding to an entropically-regularized unbalanced optimal transport problem, following the algorithm of [SFVTP19].
 
-[SFVTP19] Séjourné, T., Feydy, J., Vialard, F.-X., Trouvé, A., Peyré, G., 2019. Sinkhorn Divergences for Unbalanced Optimal Transport. arXiv:1910.12958.
+[SFVTP19] Séjourné, T., Feydy, J., Vialard, F.-X., Trouvé, A., Peyré, G., 2019. Sinkhorn Divergences for Unbalanced Optimal Transport. [arXiv:1910.12958](https://arxiv.org/abs/1910.12958).
 
 
 *Note*: While this package's source code is MIT licensed, it relies on GNU Unifont, which is GPL-licensed.
