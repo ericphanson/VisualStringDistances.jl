@@ -58,24 +58,6 @@ julia> printglyph("aaa")
 
 
 
-julia> printglyph("aaa")
-
-
-
-
-
-
-  ####    ####    ####
- #    #  #    #  #    #
-      #       #       #
-  #####   #####   #####
- #    #  #    #  #    #
- #    #  #    #  #    #
- #   ##  #   ##  #   ##
-  ### #   ### #   ### #
-
-
-
 julia> printglyph("ZZZ")
 
 
