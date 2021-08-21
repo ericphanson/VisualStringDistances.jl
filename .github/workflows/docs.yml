@@ -17,13 +17,17 @@ on:
       - 'Project.toml'
 jobs:
   Documenter:
-    name: Documentation
+    name: Documentation (Julia ${{ matrix.version }})
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        include:
+          - version: 1.0 # Build documentation on Julia 1.0 to make sure we still support it
     steps:
       - uses: actions/checkout@v2
       - uses: julia-actions/setup-julia@latest
         with:
-          version: '1.0' # Build documentation on Julia 1.0 to make sure we still support it
+          version: ${{ matrix.version}}
       - uses: julia-actions/julia-buildpkg@latest
       - uses: julia-actions/julia-docdeploy@latest
         env:
