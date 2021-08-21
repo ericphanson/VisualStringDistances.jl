@@ -29,7 +29,7 @@ jobs:
           #   julia_version: 1.6.2 # don't forget to change this below too!
           #   name: 'suggestions' # just to show a nice name in the status check
           #   reviewdog_flags: ''
-          
+
           # We run once with no filter. That means we get
           # "annotations" instead of suggestions (toggle them by pressing `a`
           # while viewing the PR) and they can't be committed, but they can
@@ -53,10 +53,23 @@ jobs:
           file: lcov.info
           ## if needed-- usually not needed for public repos:
           # token: ${{ secrets.CODECOV_TOKEN }}
-      - uses: reviewdog/action-suggester@v1
-        if: github.event_name == 'pull_request'
+      # Run reviewdog
+      - uses: reviewdog/action-setup@v1
         with:
-          tool_name: Documenter (doctests)
-          fail_on_error: ${{ matrix.fail_on_error }}
-          filter_mode: ${{ matrix.filter_mode }}
-          reviewdog_flags: ${{ matrix.reviewdog_flags }}
+          reviewdog_version: latest # Optional. [latest,nightly,v.X.Y.Z]
+      - name: Run reviewdog
+        env:
+          REVIEWDOG_GITHUB_API_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        shell: bash
+        run: |
+          TMPFILE=$(mktemp)
+          git diff >"${TMPFILE}"
+          git stash -u
+          reviewdog -f=diff \
+                    -f.diff.strip=1 \
+                    -reporter=github-pr-check \
+                    -filter-mode=nofilter \
+                    -fail-on-error=true \
+                    -name="Documenter (doctests)" < "${TMPFILE}" || EXIT_CODE=$?
+          git stash drop || true
+          exit ${EXIT_CODE}
