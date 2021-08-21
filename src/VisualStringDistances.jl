@@ -95,7 +95,6 @@ julia> printglyph("def")
 julia> visual_distance("abc", "def")
 
 julia> visual_distance("abc", "abe")
-4.979840716647487
 ```
 
 """
