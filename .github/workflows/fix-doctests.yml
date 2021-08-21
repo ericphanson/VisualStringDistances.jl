@@ -15,7 +15,7 @@ jobs:
 
     # Fix the doctests
     - name: Fix doctests
-      uses: ericphanson/julia-doctest/run-doctests@843a21e265e11e51b5fcda1047f373f5fd9cf8ac
+      uses: ericphanson/julia-doctest/run-doctests@34a9d16261dfc2d92a4277673b9832023fe20274
       with:
         package: VisualStringDistances
     # Commit the changes back
