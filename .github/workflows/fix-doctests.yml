@@ -6,6 +6,7 @@ on:
     types: [ labeled ]
 jobs:
   build:
+    # if you want to choose a different label to trigger fixing the doctests, change it here
     if: ${{ github.event.label.name == 'fix-doctests' }}
     runs-on: ubuntu-latest
     steps:
@@ -23,7 +24,7 @@ jobs:
     
     # Now we fix the doctests in the code we just checked out.
     - name: Fix doctests
-      uses: ericphanson/julia-doctest/fix-doctests@7a261fd1990e221fa9566f16777f2d770636d6bd
+      uses: ericphanson/julia-doctest/fix-doctests@6690b2b94201d7d89096db2c90235e130e6b7d18
     
     # Push the changes back
     - uses: stefanzweifel/git-auto-commit-action@v4
