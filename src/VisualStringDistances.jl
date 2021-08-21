@@ -59,9 +59,6 @@ julia> using VisualStringDistances
 
 julia> printglyph("abc")
 
-
-
-         #
          #
          #
   ####   # ###    ####
@@ -70,9 +67,6 @@ julia> printglyph("abc")
   #####  #    #  #
  #    #  #    #  #
  #    #  #    #  #
- #   ##  ##   #  #    #
- #    #  #    #  #
- #   ##  ##   #  #    #
  #    #  #    #  #
 
 julia> printglyph("def")
