@@ -69,8 +69,6 @@ julia> printglyph("abc")
       #  #    #  #
   #####  #    #  #
  #    #  #    #  #
- #    #  #    #  #
- #   ##  ##   #  #    #
   ### #  # ###    ####
 
 julia> printglyph("def")

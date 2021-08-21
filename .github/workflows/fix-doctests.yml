@@ -17,14 +17,14 @@ jobs:
     
     # Check out the code
     - uses: actions/checkout@v2
-      ## Uncomment to use a personal access token (PAT) such as `DOCUMENTER_KEY`
+      ## Use a personal access token (PAT) such as `DOCUMENTER_KEY`
       ## in order to later `push` with enough permissions to trigger github workflows again.
-      #with:
-      #  token: ${{ secrets.PAT }}
+      with:
+       token: ${{ secrets.DOCUMENTER_KEY }}
     
     # Now we fix the doctests in the code we just checked out.
     - name: Fix doctests
-      uses: ericphanson/julia-doctest/fix-doctests@6690b2b94201d7d89096db2c90235e130e6b7d18
+      uses: ericphanson/julia-doctest/fix-doctests@21c360b625917725302e2a1be1cb8f0721557158
     
     # Push the changes back
     - uses: stefanzweifel/git-auto-commit-action@v4

@@ -42,12 +42,13 @@ jobs:
           version: ${{ matrix.julia_version }}
       - uses: actions/checkout@v2
       - name: Fix doctests
-        uses: ericphanson/julia-doctest/fix-doctests@6690b2b94201d7d89096db2c90235e130e6b7d18
+        uses: ericphanson/julia-doctest/fix-doctests@21c360b625917725302e2a1be1cb8f0721557158
       - uses: julia-actions/julia-processcoverage@v1
       - uses: codecov/codecov-action@v1
         with:
           file: lcov.info
-          token: ${{ secrets.CODECOV_TOKEN }} # if needed-- usually not needed for public repos
+          ## if needed-- usually not needed for public repos:
+          # token: ${{ secrets.CODECOV_TOKEN }}
       - uses: reviewdog/action-suggester@v1
         if: github.event_name == 'pull_request'
         with:
