@@ -23,7 +23,7 @@ jobs:
     
     # Now we fix the doctests in the code we just checked out.
     - name: Fix doctests
-      uses: ericphanson/julia-doctest/fix-doctests@eph/init
+      uses: ericphanson/julia-doctest/fix-doctests@7a261fd1990e221fa9566f16777f2d770636d6bd
     
     # Push the changes back
     - uses: stefanzweifel/git-auto-commit-action@v4

@@ -42,7 +42,7 @@ jobs:
           version: ${{ matrix.julia_version }}
       - uses: actions/checkout@v2
       - name: Fix doctests
-        uses: ericphanson/julia-doctest/fix-doctests@eph/init
+        uses: ericphanson/julia-doctest/fix-doctests@7a261fd1990e221fa9566f16777f2d770636d6bd
       - uses: julia-actions/julia-processcoverage@v1
       - uses: codecov/codecov-action@v1
         with:
