@@ -28,7 +28,8 @@ jobs:
           #   filter_mode: 'diff_context'
           #   julia_version: 1.6.2 # don't forget to change this below too!
           #   name: 'suggestions' # just to show a nice name in the status check
-
+          #   reviewdog_flags: ''
+          
           # We run once with no filter. That means we get
           # "annotations" instead of suggestions (toggle them by pressing `a`
           # while viewing the PR) and they can't be committed, but they can
@@ -36,6 +37,7 @@ jobs:
           - fail_on_error: true
             filter_mode: 'nofilter'
             julia_version: 1.6.2
+            reviewdog_flags: '-reporter=github-pr-check'
             name: 'annotations'
 
     steps:
@@ -57,3 +59,4 @@ jobs:
           tool_name: Documenter (doctests)
           fail_on_error: ${{ matrix.fail_on_error }}
           filter_mode: ${{ matrix.filter_mode }}
+          reviewdog_flags: ${{ matrix.reviewdog_flags }}
