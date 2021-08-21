@@ -20,12 +20,14 @@ jobs:
       fail-fast: false # run both jobs even if one fails
       matrix:
         include:
-          # We run and generate github suggestions on anywhere in the
-          # diff of the PR.
-          - fail_on_error: true
-            filter_mode: 'diff_context'
-            julia_version: 1.6.2 # don't forget to change this below too!
-            name: 'suggestions' # just to show a nice name in the status check
+          ## This seems to be buggy-- getting nonsense suggestions like
+          ## <https://github.com/ericphanson/VisualStringDistances.jl/pull/14#discussion_r693398232>
+          # # We run and generate github suggestions on anywhere in the
+          # # diff of the PR.
+          # - fail_on_error: true
+          #   filter_mode: 'diff_context'
+          #   julia_version: 1.6.2 # don't forget to change this below too!
+          #   name: 'suggestions' # just to show a nice name in the status check
 
           # We run once with no filter. That means we get
           # "annotations" instead of suggestions (toggle them by pressing `a`
