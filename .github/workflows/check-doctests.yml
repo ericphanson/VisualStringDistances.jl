@@ -4,7 +4,7 @@
 # fail in places outside where the PR itself changed, it will only make "annotations"
 # which are notes that can be toggled by pressing `a`. Use the complementary action `fix-doctests`
 # to fix these by adding a label to the PR.
-name: suggest-doctests
+name: check-doctests
 on:
   push:
     branches:
@@ -13,8 +13,8 @@ on:
       - /^release-.*$/
   pull_request:
 jobs:
-  doctests:
-    name: Doctests (Julia ${{ matrix.julia_version }} - ${{ matrix.filter_mode }})
+  doctest:
+    name: ${{ matrix.name }} (Julia ${{ matrix.julia_version }})
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false # run both jobs even if one fails
@@ -24,7 +24,8 @@ jobs:
           # diff of the PR.
           - fail_on_error: true
             filter_mode: 'diff_context'
-            julia_version: 1.6.2
+            julia_version: 1.6.2 # don't forget to change this below too!
+            name: 'suggestions' # just to show a nice name in the status check
 
           # We run once with no filter. That means we get
           # "annotations" instead of suggestions (toggle them by pressing `a`
@@ -33,6 +34,7 @@ jobs:
           - fail_on_error: true
             filter_mode: 'nofilter'
             julia_version: 1.6.2
+            name: 'annotations'
 
     steps:
       - uses: julia-actions/setup-julia@latest
