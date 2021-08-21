@@ -4,13 +4,13 @@ jobs:
   Doctest-annotations:
     runs-on: ubuntu-latest
     steps:
-      - uses: ericphanson/julia-doctest@1dd302bfb25f66999eadf559ed4357842e9c7dd3
+      - uses: ericphanson/julia-doctest@666b9fc7a0319f59f13c80007d53728ae6b9d515
         with:
           package: VisualStringDistances
   Doctest-suggestions:
     runs-on: ubuntu-latest
     steps:
-      - uses: ericphanson/julia-doctest@1dd302bfb25f66999eadf559ed4357842e9c7dd3
+      - uses: ericphanson/julia-doctest@666b9fc7a0319f59f13c80007d53728ae6b9d515
         with:
           package: VisualStringDistances
           filter_mode: 'diff_context'
