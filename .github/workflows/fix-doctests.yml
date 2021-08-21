@@ -1,3 +1,5 @@
+# This workflow automatically fixes doctests on PRs when the label `fix-doctests`
+# is applied. It removes the label upon successful completion.
 name: fix-doctests
 on:
   pull_request:
@@ -7,21 +9,29 @@ jobs:
     if: ${{ github.event.label.name == 'fix-doctests' }}
     runs-on: ubuntu-latest
     steps:
+    # Install the right version of Julia
     - uses: julia-actions/setup-julia@latest
       with:
         version: 1.6.2
-      
+    
+    # Check out the code
     - uses: actions/checkout@v2
-
-    # Fix the doctests
+      ## Uncomment to use a personal access token (PAT) such as `DOCUMENTER_KEY`
+      ## in order to later `push` with enough permissions to trigger github workflows again.
+      #with:
+      #  token: ${{ secrets.PAT }}
+    
+    # Now we fix the doctests in the code we just checked out.
     - name: Fix doctests
-      uses: ericphanson/julia-doctest/run-doctests@34a9d16261dfc2d92a4277673b9832023fe20274
-    # Commit the changes back
+      uses: ericphanson/julia-doctest/fix-doctests@eph/init
+    
+    # Push the changes back
     - uses: stefanzweifel/git-auto-commit-action@v4
       with:
         commit_message: Fix doctests
+      
     # Remove the label
     - uses: actions-ecosystem/action-remove-labels@v1
       with:
         labels: 'fix-doctests'
-        github_token: ${{ secrets.GITHUB_TOKEN }}
+        github_token: ${{ secrets.GITHUB_TOKEN }} # needed to remove the label

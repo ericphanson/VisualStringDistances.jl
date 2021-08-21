@@ -1,0 +1,54 @@
+# This workflow serves two purposes. First, it runs a packages doctests and fails if they do
+# not pass. Second, it also makes suggestions to fix them. If the PR's diff changes the doctests
+# themselves, it will make comments with suggestions that can be commited. If the doctests
+# fail in places outside where the PR itself changed, it will only make "annotations"
+# which are notes that can be toggled by pressing `a`. Use the complementary action `fix-doctests`
+# to fix these by adding a label to the PR.
+name: suggest-doctests
+on:
+  push:
+    branches:
+      - 'main'
+      - 'master'
+      - /^release-.*$/
+  pull_request:
+jobs:
+  doctests:
+    name: Doctests (Julia ${{ matrix.julia_version }} - ${{ matrix.filter_mode }})
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false # run both jobs even if one fails
+      matrix:
+        include:
+          # We run and generate github suggestions on anywhere in the
+          # diff of the PR.
+          - fail_on_error: true
+            filter_mode: 'diff_context'
+            julia_version: 1.6.2
+
+          # We run once with no filter. That means we get
+          # "annotations" instead of suggestions (toggle them by pressing `a`
+          # while viewing the PR) and they can't be committed, but they can
+          # occur anywhere, not just in the diff of the PR.
+          - fail_on_error: true
+            filter_mode: 'nofilter'
+            julia_version: 1.6.2
+
+    steps:
+      - uses: julia-actions/setup-julia@latest
+        with:
+          version: ${{ matrix.julia_version }}
+      - uses: actions/checkout@v2
+      - name: Fix doctests
+        uses: ericphanson/julia-doctest/fix-doctests@eph/init
+      - uses: julia-actions/julia-processcoverage@v1
+      - uses: codecov/codecov-action@v1
+        with:
+          file: lcov.info
+          token: ${{ secrets.CODECOV_TOKEN }} # if needed-- usually not needed for public repos
+      - uses: reviewdog/action-suggester@v1
+        if: github.event_name == 'pull_request'
+        with:
+          tool_name: Documenter (doctests)
+          fail_on_error: ${{ matrix.fail_on_error }}
+          filter_mode: ${{ matrix.filter_mode }}
