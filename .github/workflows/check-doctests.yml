@@ -34,10 +34,9 @@ jobs:
           # "annotations" instead of suggestions (toggle them by pressing `a`
           # while viewing the PR) and they can't be committed, but they can
           # occur anywhere, not just in the diff of the PR.
-          - fail_on_error: true
-            filter_mode: 'nofilter'
+          - filter-mode: 'nofilter'
+            reporter: 'github-pr-check'
             julia_version: 1.6.2
-            reviewdog_flags: '-reporter=github-pr-check'
             name: 'annotations'
 
     steps:
@@ -67,8 +66,8 @@ jobs:
           git stash -u
           reviewdog -f=diff \
                     -f.diff.strip=1 \
-                    -reporter=github-pr-check \
-                    -filter-mode=nofilter \
+                    -reporter=${{ matrix.reporter }} \
+                    -filter-mode=${{ matrix.filter-mode }} \
                     -fail-on-error=true \
                     -name="Documenter (doctests)" < "${TMPFILE}" || EXIT_CODE=$?
           git stash drop || true
