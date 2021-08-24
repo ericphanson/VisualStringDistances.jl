@@ -38,7 +38,8 @@ jobs:
           using Logging: global_logger
           using GitHubActions: GitHubActionsLogger
           global_logger(GitHubActionsLogger())
-          include("docs/make.jl")
+          path = joinpath(ENV["GITHUB_WORKSPACE"], "docs", "make.jl")
+          include(path)
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           DOCUMENTER_KEY: ${{ secrets.DOCUMENTER_KEY }}
