@@ -30,7 +30,7 @@ jobs:
           version: ${{ matrix.version}}
       - uses: julia-actions/julia-buildpkg@latest
       - name: Build docs
-        shell: julia --color=yes --project=docs/
+        shell: julia --color=yes --project=docs/ {0}
         run: |
           using Pkg
           Pkg.develop(PackageSpec(path=pwd())); Pkg.instantiate()
