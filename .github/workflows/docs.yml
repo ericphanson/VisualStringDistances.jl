@@ -29,7 +29,16 @@ jobs:
         with:
           version: ${{ matrix.version}}
       - uses: julia-actions/julia-buildpkg@latest
-      - uses: julia-actions/julia-docdeploy@latest
+      - name: Build docs
+        shell: julia --color=yes --project=docs/
+        run: |
+          using Pkg
+          Pkg.develop(PackageSpec(path=pwd())); Pkg.instantiate()
+          Pkg.add("GitHubActions")
+          using Logging: global_logger
+          using GitHubActions: GitHubActionsLogger
+          global_logger(GitHubActionsLogger())
+          include("docs/make.jl")
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           DOCUMENTER_KEY: ${{ secrets.DOCUMENTER_KEY }}
