@@ -29,19 +29,7 @@ jobs:
         with:
           version: ${{ matrix.version}}
       - uses: julia-actions/julia-buildpkg@latest
-      - name: Build docs
-        shell: julia --color=yes --project=docs/ {0}
-        run: |
-          using Pkg
-          Pkg.add(url="https://github.com/ericphanson/Documenter.jl", rev="eph/report_logger")
-          Pkg.develop(PackageSpec(path=pwd()))
-          Pkg.instantiate()
-          Pkg.add(url="https://github.com/ericphanson/GitHubActions.jl", rev="eph/logger")
-          using Logging: global_logger
-          using GitHubActions: GitHubActionsLogger
-          global_logger(GitHubActionsLogger())
-          path = joinpath(ENV["GITHUB_WORKSPACE"], "docs", "make.jl")
-          include(path)
+      - uses: ericphanson/julia-docdeploy@eph/gha_logger
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           DOCUMENTER_KEY: ${{ secrets.DOCUMENTER_KEY }}
