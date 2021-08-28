@@ -18,7 +18,7 @@ jobs:
     # Check out the code
     - uses: actions/checkout@v2
       with:
-       ssh-key: ${{ secrets.DOCUMENTER_KEY }}
+       ssh-key: ${{ secrets.DOCTEST_KEY }}
     
     # Now we fix the doctests in the code we just checked out.
     - name: Fix doctests
