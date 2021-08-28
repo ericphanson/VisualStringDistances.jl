@@ -56,7 +56,6 @@ One may use [`printglyph`](@ref) to see the visual representation of the strings
 
 ```jldoctest
 julia> using VisualStringDistances
-
 julia> printglyph("abc")
 
          #
