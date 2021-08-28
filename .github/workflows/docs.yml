@@ -36,7 +36,7 @@ jobs:
           Pkg.add(url="https://github.com/ericphanson/Documenter.jl", rev="eph/report_logger")
           Pkg.develop(PackageSpec(path=pwd()))
           Pkg.instantiate()
-          Pkg.add("GitHubActions")
+          Pkg.add(url="https://github.com/ericphanson/GitHubActions.jl", rev="eph/logger")
           using Logging: global_logger
           using GitHubActions: GitHubActionsLogger
           global_logger(GitHubActionsLogger())
