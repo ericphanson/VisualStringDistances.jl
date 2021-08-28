@@ -17,12 +17,8 @@ jobs:
     
     # Check out the code
     - uses: actions/checkout@v2
-      ## Use a personal access token (PAT) in order to later `push` with enough
-      ## permissions to trigger github workflows again.
-      ## This can't be the usual `DOCUMENTER_KEY` since that is generally Base64
-      ## encoded, and `actions/checkout@v2` won't understand it.
       with:
-       token: ${{ secrets.DOCTEST_PAT }}
+       ssh-key: ${{ secrets.DOCUMENTER_KEY }}
     
     # Now we fix the doctests in the code we just checked out.
     - name: Fix doctests
