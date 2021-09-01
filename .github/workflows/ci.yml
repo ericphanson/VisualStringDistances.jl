@@ -2,7 +2,7 @@ name: CI
 on:
   push:
     branches:
-      - master
+      - main
     paths-ignore:
       - 'LICENSE.md'
       - 'README.md'
@@ -10,7 +10,7 @@ on:
       - '!.github/workflows/ci.yml'
   pull_request:
     branches:
-      - master
+      - main
     paths-ignore:
       - 'LICENSE.md'
       - 'README.md'
@@ -24,7 +24,7 @@ jobs:
       matrix:
         version:
           - '1.0'
-          - '1.4'
+          - '1'
           - 'nightly'
         os:
           - ubuntu-latest
@@ -44,19 +44,3 @@ jobs:
       - uses: codecov/codecov-action@v1
         with:
           file: lcov.info
-  docs:
-    name: Documentation
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
-      - uses: julia-actions/setup-julia@v1
-        with:
-          version: '1.4'
-      - run: julia --project=docs -e '
-          using Pkg;
-          Pkg.instantiate();
-          Pkg.develop(PackageSpec(; path=pwd()));'
-      - run: julia --project=docs docs/make.jl
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          DOCUMENTER_KEY: ${{ secrets.DOCUMENTER_KEY }}

@@ -1,0 +1,40 @@
+name: Documentation
+on:
+  push:
+    branches: [main]
+    tags: ['v*']
+    paths:
+      - '.github/workflows/docs.yml'
+      - 'src/**'
+      - 'docs/**'
+      - 'Project.toml'
+  pull_request:
+    types: [opened, synchronize, reopened]
+    paths:
+      - '.github/workflows/docs.yml'
+      - 'src/**'
+      - 'docs/**'
+      - 'Project.toml'
+jobs:
+  Documenter:
+    name: Documentation (Julia ${{ matrix.version }})
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        include:
+          - version: 1.0 # Build documentation on Julia 1.0 to make sure we still support it
+    steps:
+      - uses: actions/checkout@v2
+      - uses: julia-actions/setup-julia@latest
+        with:
+          version: ${{ matrix.version}}
+      - uses: julia-actions/julia-buildpkg@latest
+      - uses: ericphanson/julia-docdeploy@eph/gha_logger
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          DOCUMENTER_KEY: ${{ secrets.DOCUMENTER_KEY }}
+      # Get codecov for doctests
+      - uses: julia-actions/julia-processcoverage@v1
+      - uses: codecov/codecov-action@v2
+        with:
+          file: lcov.info
