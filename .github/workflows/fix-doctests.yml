@@ -10,7 +10,7 @@ jobs:
     if: ${{ github.event.label.name == 'fix-doctests' }}
     runs-on: ubuntu-latest
     steps:
-    # Install the right version of Julia
+    # Install the right version of Julia for your doctests
     - uses: julia-actions/setup-julia@latest
       with:
         version: 1.6.2
@@ -18,11 +18,14 @@ jobs:
     # Check out the code
     - uses: actions/checkout@v2
       with:
+      # needs a deploy key, but not a base64-encoded one like Documenter's keys usually are.
+      # Note: this is only needed if you want the commit pushed by fixing the doctests to
+      # itself trigger github workflows (such as your doctests or CI).
        ssh-key: ${{ secrets.DOCTEST_KEY }}
     
     # Now we fix the doctests in the code we just checked out.
     - name: Fix doctests
-      uses: ericphanson/julia-doctest/fix-doctests@21c360b625917725302e2a1be1cb8f0721557158
+      uses: ericphanson/julia-fix-doctests@cad3bbb411f9ea93b85bb54ffcf52c78db3d4e7c
     
     # Push the changes back
     - uses: stefanzweifel/git-auto-commit-action@v4
