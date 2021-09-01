@@ -1,3 +1,4 @@
+# https://github.com/julia-actions/julia-fix-doctests#example-workflow
 # This workflow automatically fixes doctests on PRs when the label `fix doctests`
 # is applied. It removes the label upon successful completion.
 name: fix-doctests
