@@ -24,8 +24,7 @@ jobs:
        ssh-key: ${{ secrets.DOCTEST_KEY }}
     
     # Now we fix the doctests in the code we just checked out.
-    - name: Fix doctests
-      uses: julia-actions/julia-fix-doctests@v0.1.0
+    - uses: julia-actions/julia-fix-doctests@v0.1
     
     # Push the changes back
     - uses: stefanzweifel/git-auto-commit-action@v4
