@@ -22,7 +22,7 @@ jobs:
     strategy:
       matrix:
         include:
-          - version: 1.0 # Build documentation on Julia 1.0 to make sure we still support it
+          - version: '1.0' # Build documentation on Julia 1.0 to make sure we still support it
     steps:
       - uses: actions/checkout@v2
       - uses: julia-actions/setup-julia@latest
