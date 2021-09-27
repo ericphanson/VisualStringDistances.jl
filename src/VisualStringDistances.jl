@@ -92,6 +92,7 @@ julia> visual_distance("abc", "def")
 31.57060117541754
 
 julia> visual_distance("abc", "abe")
+4.979840716647487
 ```
 
 """
