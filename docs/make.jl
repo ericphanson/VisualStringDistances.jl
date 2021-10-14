@@ -17,6 +17,7 @@ makedocs(;
         "Visualizations" => "visualizations.md",
         "Package names" => "packagenames.md",
     ],
+    strict=:doctest
 )
 
 deploydocs(;
