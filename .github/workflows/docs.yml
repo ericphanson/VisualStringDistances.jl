@@ -25,11 +25,11 @@ jobs:
           - version: '1.0' # Build documentation on Julia 1.0 to make sure we still support it
     steps:
       - uses: actions/checkout@v2
-      - uses: julia-actions/setup-julia@1
+      - uses: julia-actions/setup-julia@v1
         with:
           version: ${{ matrix.version}}
-      - uses: julia-actions/julia-buildpkg@1
-      - uses: julia-actions/julia-docdeploy@1
+      - uses: julia-actions/julia-buildpkg@v1
+      - uses: julia-actions/julia-docdeploy@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           DOCUMENTER_KEY: ${{ secrets.DOCUMENTER_KEY }}
