@@ -1,0 +1,6 @@
+[deps]
+Metaheuristics = "bcdb8e00-2c21-11e9-3065-2b553b22f898"
+NOMAD = "02130f1c-4665-5b79-af82-ff1385104aa0"
+SparseArrays = "2f01184e-e22b-5df5-ae63-d93ebab69eaf"
+UnbalancedOptimalTransport = "6f61b460-fd45-461a-bdf7-98edd72e362f"
+VisualStringDistances = "089bb0c6-1854-47b9-96f7-327dbbe09dca"
